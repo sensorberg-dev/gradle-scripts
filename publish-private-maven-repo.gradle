@@ -27,21 +27,6 @@ afterEvaluate { project ->
         }
     }
 
-    task installArchives(type: Upload) {
-        description "Installs the artifacts to the local Maven repository."
-        configuration = configurations['archives']
-        repositories {
-            mavenDeployer {
-                pom.groupId = POM_GROUP_ID
-                pom.artifactId = POM_ARTIFACT_ID
-                pom.version = POM_VERSION
-                pom.packaging = POM_PACKAGING
-
-                repository url: "file://${System.properties['user.home']}/.m2/repository"
-            }
-        }
-    }
-
     signing {
         required { gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
