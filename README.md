@@ -55,6 +55,14 @@ MAVEN_PASSWORD=123456789
 ```
 same as publish-private-maven-repo.gradle
 
+### publish-to-local-maven-repo.gradle
+```
+POM_GROUP_ID=com.company.omg
+POM_VERSION=0.0.1
+POM_PACKAGING=aar
+POM_ARTIFACT_ID=my-super-lib
+```
+
 ### publish-bitbucket-private-repo.gradle
 project gradle.properties
 ```
