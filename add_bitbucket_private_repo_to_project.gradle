@@ -1,0 +1,13 @@
+apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/common-def.gradle'
+
+allprojects {
+    repositories {
+        maven {
+            credentials {
+                username findProperty("BITBUCKET_USERNAME")
+                password findProperty("BITBUCKET_PASSWORD")
+            }
+            url 'https://api.bitbucket.org/1.0/repositories/' + findProperty("COMPANY") + '/' + findProperty("REPOSITORY_NAME") + '/raw/releases/'
+        }
+    }
+}

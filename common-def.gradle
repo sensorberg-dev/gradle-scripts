@@ -1,0 +1,101 @@
+def wrapInQuotes(String wrapMe) {
+    return "\"" + wrapMe + "\""
+}
+
+def gitSha1() {
+    try {
+        final def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--short', 'HEAD'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    } catch (Exception e) {
+        return "gitless"
+    }
+}
+
+def findQuotedProperty(String key, String defaultValue) {
+    def val = findProperty(key, defaultValue)
+    if (val != defaultValue) {
+        val = wrapInQuotes(val)
+    }
+    return val
+}
+
+def findProperty(String key, String defaultValue) {
+    try {
+      return findProperty(key)
+    } catch(IllegalArgumentException e) {
+      return defaultValue
+    }
+}
+
+def findProperty(String key) {
+
+    println "Finding '$key' property"
+
+    // CI injected
+    if (System.getenv().containsKey(key)) {
+        return System.getenv(key)
+    }
+
+    // local.properties file (dev-environment)
+    def propsFile = rootProject.file('local.properties')
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(propsFile.newDataInputStream())
+        if (props[key] != null) {
+            return props[key]
+        }
+    }
+
+    // gradle.properties file
+    if (hasProperty(key)) {
+        return getProperty(key)
+    }
+
+    // default
+    throw new IllegalArgumentException("Cannot find '$key' property")
+}
+
+def download(String from, String to) {
+
+    println "Dowloading from '$from' to '$to'"
+
+    def f = new File(to)
+    new URL(from).withInputStream { i ->
+        f.withOutputStream {
+            it << i
+        }
+    }
+}
+
+def downloadToProjectRoot(String from, String subfolder, String filename) {
+    def to
+    if (subfolder != null) {
+        mkdir "${project.rootDir}/${subfolder}"
+        to = "${project.rootDir}/${subfolder}/${filename}"
+    } else {
+        to = "${project.rootDir}/${filename}"
+    }
+
+    println "Dowloading from '$from' to '$to'"
+
+    def f = new File(to)
+    new URL(from).withInputStream { i ->
+        f.withOutputStream {
+            it << i
+        }
+    }
+}
+
+
+ext {
+    findProperty = this.&findProperty
+    findQuotedProperty = this.&findQuotedProperty
+    gitSha1 = this.&gitSha1
+    wrapInQuotes = this.&wrapInQuotes
+    download = this.&download
+    downloadToProjectRoot = this.&downloadToProjectRoot
+}

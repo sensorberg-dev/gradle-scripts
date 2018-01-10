@@ -1,0 +1,24 @@
+apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/common-def.gradle'
+
+class DownloadCodeStyle implements TaskExecutionListener {
+
+    @Override
+    void beforeExecute(Task task) {
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState state) {
+        if (task.name.equals("preBuild")) {
+            task.project.rootProject.ext.
+                    downloadToProjectRoot(
+                            // source
+                            "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/codeStyleSettings.xml",
+                            // sub-folder
+                            ".idea",
+                            // file name
+                            "codeStyleSettings.xml")
+        }
+    }
+}
+
+gradle.addListener new DownloadCodeStyle()

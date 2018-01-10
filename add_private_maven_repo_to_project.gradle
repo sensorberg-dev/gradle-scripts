@@ -1,0 +1,13 @@
+apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/common-def.gradle'
+
+allprojects {
+    repositories {
+        maven {
+            url findProperty("MAVEN_URL")
+            credentials {
+                username = findProperty("MAVEN_USERNAME")
+                password = findProperty("MAVEN_PASSWORD")
+            }
+        }
+    }
+}
