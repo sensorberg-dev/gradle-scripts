@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<!-- Custom PMD config-->
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ruleset"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+    <description>POM rule set file</description>
+
+    <rule ref="rulesets/java/android.xml"/>
+
+    <rule ref="rulesets/java/basic.xml"/>
+
+    <rule ref="rulesets/java/braces.xml">
+        <!-- We allow single line if's without braces -->
+        <exclude name="IfStmtsMustUseBraces"/>
+    </rule>
+
+    <rule ref="rulesets/java/clone.xml"/>
+
+    <rule ref="rulesets/java/codesize.xml">
+        <!-- using ModifiedCyclomaticComplexity and disabling two other duplicate rules-->
+        <exclude name="CyclomaticComplexity"/>
+        <exclude name="StdCyclomaticComplexity"/>
+        <exclude name="TooManyFields"/>
+    </rule>
+    <rule message="Avoid methods longer than 200 lines"
+          ref="rulesets/java/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="200"/>
+        </properties>
+    </rule>
+    <rule message="Avoid classes longer than 500 lines"
+          ref="rulesets/java/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" value="500"/>
+        </properties>
+    </rule>
+    <rule message="Avoid classes longer than 20 methods"
+          ref="rulesets/java/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="20"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/codesize.xml/ModifiedCyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="11"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/java/codesize.xml/NPathComplexity">
+        <properties>
+            <property name="minimum" value="201"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/coupling.xml">
+        <exclude name="ExcessiveImports"/>
+        <exclude name="LawOfDemeter"/>
+        <exclude name="LoosePackageCoupling"/>
+    </rule>
+
+    <rule ref="rulesets/java/empty.xml">
+        <exclude name="EmptyCatchBlock"/>
+    </rule>
+
+    <rule ref="rulesets/java/finalizers.xml"/>
+
+    <rule ref="rulesets/java/imports.xml">
+        <!-- Espresso is designed this way !-->
+        <exclude name="TooManyStaticImports"/>
+    </rule>
+
+
+    <rule ref="rulesets/java/junit.xml"/>
+
+    <rule ref="rulesets/java/logging-jakarta-commons.xml">
+        <exclude name="GuardLogStatement"/>
+    </rule>
+
+    <rule ref="rulesets/java/logging-java.xml">
+        <exclude name="GuardLogStatementJavaUtil"/>
+    </rule>
+
+    <rule ref="rulesets/java/migrating.xml">
+        <exclude name="JUnit4TestShouldUseTestAnnotation"/>
+    </rule>
+
+    <rule ref="rulesets/java/optimizations.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="RedundantFieldInitializer"/>
+    </rule>
+
+    <rule ref="rulesets/java/strings.xml">
+        <exclude name="AvoidStringBufferField"/>
+    </rule>
+
+    <rule ref="rulesets/java/strings.xml/AvoidDuplicateLiterals">
+        <properties>
+            <property name="maxDuplicateLiterals" value="7"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/typeresolution.xml">
+        <exclude name="LooseCoupling"/>
+        <exclude name="SignatureDeclareThrowsException"/>
+    </rule>
+
+    <rule ref="rulesets/java/unnecessary.xml">
+        <exclude name="UselessParentheses"/>
+    </rule>
+
+    <rule ref="rulesets/java/unusedcode.xml"/>
+
+</ruleset>

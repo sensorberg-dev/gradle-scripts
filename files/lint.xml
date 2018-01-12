@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lint>
+    <issue id="HardcodedText" severity="error"/>
+    <issue id="InvalidPackage" severity="error">
+        <ignore regexp="okio.*jar" />
+        <ignore regexp="retrofit.*jar" />
+        <ignore regexp="auto-value.*jar" />
+        <ignore regexp="javapoet.*jar" />
+    </issue>
+</lint>

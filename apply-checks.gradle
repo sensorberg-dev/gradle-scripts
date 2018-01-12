@@ -1,0 +1,104 @@
+apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/common-def.gradle'
+
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+
+/*pmd {
+    toolVersion = '5.5.2'
+}
+
+checkstyle {
+	toolVersion "8.7"
+}*/
+
+android {
+    lintOptions {
+        abortOnError true
+        ignoreWarnings true
+        xmlReport false
+        htmlReport true
+        lintConfig = rootProject.ext.downloadToProjectRoot(
+                    "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/lint.xml",
+                    "config",
+                    "lint.xml")
+        htmlOutput file("$project.buildDir/reports/lint/lint-result.html")
+        xmlOutput file("$project.buildDir/reports/lint/lint-result.xml")
+    }
+}
+
+check.dependsOn /*'checkstyle',*/ 'findbugs', 'pmd', 'lint'
+
+task checkstyle(type: Checkstyle) {
+    ignoreFailures = false
+
+    configFile rootProject.ext.downloadToProjectRoot(
+                "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/checkstyle.xml",
+                "config",
+                "checkstyle.xml")
+
+    configProperties.checkstyleSuppressionsPath = rootProject.ext.downloadToProjectRoot(
+                "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/checkstyle-suppression.xml",
+                "config",
+                "checkstyle-suppression.xml")
+
+    source 'src/main'
+    include '**/*.java'
+    exclude '**/gen/**'
+    classpath = files()
+}
+
+task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+
+    excludeFilter = rootProject.ext.downloadToProjectRoot(
+                "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/findbugs-filter.xml",
+                "config",
+                "findbugs-filter.xml")
+
+    classes = files("build/intermediates/classes")
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination "$project.buildDir/reports/findbugs/findbugs.xml"
+        }
+        html {
+            destination "$project.buildDir/reports/findbugs/findbugs.html"
+        }
+    }
+
+    classpath = files()
+}
+
+
+task pmd(type: Pmd) {
+    ignoreFailures = false
+    ruleSetFiles = files(rootProject.ext.downloadToProjectRoot(
+                "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/pmd.xml",
+                "config",
+                "pmd.xml"))
+    ruleSets = []
+
+    source 'src/main'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination "$project.buildDir/reports/pmd/pmd.xml"
+        }
+        html {
+            destination "$project.buildDir/reports/pmd/pmd.html"
+        }
+    }
+}

@@ -69,6 +69,8 @@ def download(String from, String to) {
             it << i
         }
     }
+
+    return f
 }
 
 def downloadToProjectRoot(String from, String subfolder, String filename) {
@@ -88,6 +90,8 @@ def downloadToProjectRoot(String from, String subfolder, String filename) {
             it << i
         }
     }
+
+    return f
 }
 
 
