@@ -20,8 +20,8 @@ afterEvaluate { project ->
                 pom.version = POM_VERSION
                 pom.packaging = POM_PACKAGING
 
-                repository(url: findProperty("MAVEN_URL")) {
-                    authentication(userName: findProperty("MAVEN_USERNAME"), password: findProperty("MAVEN_PASSWORD"))
+                repository(url: findProperty("MAVEN_URL", "FOOBAR")) {
+                    authentication(userName: findProperty("MAVEN_USERNAME", "JOHN"), password: findProperty("MAVEN_PASSWORD", "DOE"))
                 }
             }
         }

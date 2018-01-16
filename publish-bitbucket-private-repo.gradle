@@ -99,6 +99,6 @@ def urlExists(String repositoryUrl) {
 }
 
 def getBase64EncodedCredentials() {
-    def s = findProperty("BITBUCKET_USERNAME") + ":" + findProperty("BITBUCKET_PASSWORD");
+    def s = findProperty("BITBUCKET_USERNAME", "JOHN") + ":" + findProperty("BITBUCKET_PASSWORD", "DOE");
     return s.bytes.encodeBase64().toString()
 }

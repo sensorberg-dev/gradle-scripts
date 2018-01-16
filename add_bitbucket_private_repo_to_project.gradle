@@ -4,8 +4,8 @@ allprojects {
     repositories {
         maven {
             credentials {
-                username findProperty("BITBUCKET_USERNAME", "FOO")
-                password findProperty("BITBUCKET_PASSWORD", "BAR")
+                username findProperty("BITBUCKET_USERNAME", "JOHN")
+                password findProperty("BITBUCKET_PASSWORD", "DOE")
             }
             url 'https://api.bitbucket.org/1.0/repositories/' + findProperty("COMPANY", "FOO") + '/' + findProperty("REPOSITORY_NAME", "BAR") + '/raw/releases/'
         }

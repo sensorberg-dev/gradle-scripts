@@ -14,7 +14,6 @@ I'll try to write as minimum amount of readme as possible, so scripts names are 
 ## findProperty and findQuotedProperty
 
 There are 3 findProperty functions defined on `common-def.gradle`:
-- `findProperty(String key)` // throws IllegalArgumentException if not found
 - `findProperty(String key, String defaultValue)`
 - `findQuotedProperty(String key, String defaultValue)` // default is not quoted
 

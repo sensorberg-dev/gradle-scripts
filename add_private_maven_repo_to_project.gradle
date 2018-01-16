@@ -5,8 +5,8 @@ allprojects {
         maven {
             url findProperty("MAVEN_URL", "FOOBAR")
             credentials {
-                username = findProperty("MAVEN_USERNAME", "FOO")
-                password = findProperty("MAVEN_PASSWORD", "BAR)
+                username = findProperty("MAVEN_USERNAME", "JOHN")
+                password = findProperty("MAVEN_PASSWORD", "DOE")
             }
         }
     }
