@@ -3,10 +3,10 @@ apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/mas
 allprojects {
     repositories {
         maven {
-            url findProperty("MAVEN_URL")
+            url findProperty("MAVEN_URL", "FOOBAR")
             credentials {
-                username = findProperty("MAVEN_USERNAME")
-                password = findProperty("MAVEN_PASSWORD")
+                username = findProperty("MAVEN_USERNAME", "FOO")
+                password = findProperty("MAVEN_PASSWORD", "BAR)
             }
         }
     }
