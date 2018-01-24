@@ -24,7 +24,7 @@ This function tries to find those variables in the following places in the follo
 - gradle.properties // in which gradle tries to find in module, root and global properties
 
 ## username and password
-All username and password uses the `findProperty(String)` function.
+All username and password uses the `findProperty(String, "FOO")` function.
 Real friends never add username and password to the repo
 
 ## Gradle properties
@@ -60,6 +60,13 @@ POM_GROUP_ID=com.company.omg
 POM_VERSION=0.0.1
 POM_PACKAGING=aar
 POM_ARTIFACT_ID=my-super-lib
+```
+
+### find-version-name.gradle
+default if there's no git tag and not `POM_VERSION` is `"0.0.0-ALPHA-${gitSha1()}"`
+```
+POM_VERSION=0.0.1   # only used if can't find git tag
+IS_RELEASE=true     # or false, or just comment out the line
 ```
 
 ### publish-bitbucket-private-repo.gradle

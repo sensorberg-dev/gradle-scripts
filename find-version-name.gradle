@@ -1,0 +1,21 @@
+apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/common-def.gradle'
+
+def findVersionName() {
+    def versionName
+    try {
+        def tag = gitTag()
+        if (findProperty("IS_RELEASE", "false") == "true") {
+            versionName = tag
+        } else {
+            versionName = tag + "-" + gitSha1()
+        }
+    } catch (Exception e) {
+        versionName = findProperty("POM_VERSION", "0.0.0-ALPHA") + "-" + gitSha1()
+    }
+    println "Found version name = $versionName"
+    return versionName
+}
+
+ext {
+    findVersionName = this.&findVersionName
+}

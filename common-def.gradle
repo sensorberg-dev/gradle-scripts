@@ -15,6 +15,15 @@ def gitSha1() {
     }
 }
 
+def gitTag() {
+    final def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--abbrev=0', "--tags"
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 def findQuotedProperty(String key, String defaultValue) {
     def val = findProperty(key, defaultValue)
     if (val != defaultValue) {
@@ -91,6 +100,7 @@ ext {
     findProperty = this.&findProperty
     findQuotedProperty = this.&findQuotedProperty
     gitSha1 = this.&gitSha1
+    gitTag = this.&gitTag
     wrapInQuotes = this.&wrapInQuotes
     download = this.&download
     downloadToProjectRoot = this.&downloadToProjectRoot
