@@ -1,10 +1,11 @@
 apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/common-def.gradle'
+apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/find-version-name.gradle'
 
 apply plugin: 'maven'
 apply plugin: 'signing'
 
 allprojects {
-    version = POM_VERSION
+    version = findVersionName()
     group = POM_GROUP_ID
 }
 
@@ -17,7 +18,7 @@ afterEvaluate { project ->
 
                 pom.groupId = POM_GROUP_ID
                 pom.artifactId = POM_ARTIFACT_ID
-                pom.version = POM_VERSION
+                pom.version = findVersionName()
                 pom.packaging = POM_PACKAGING
 
                 repository(url: findProperty("MAVEN_URL", "FOOBAR")) {
