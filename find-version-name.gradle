@@ -10,7 +10,7 @@ def findVersionName() {
             versionName = tag + "-" + gitSha1()
         }
     } catch (Exception e) {
-        versionName = findProperty("POM_VERSION", "0.0.0-ALPHA") + "-" + gitSha1()
+        versionName = findProperty("POM_VERSION", "0.0.0-ALPHA-" + gitSha1())
     }
     println "Found version name = $versionName"
     return versionName
