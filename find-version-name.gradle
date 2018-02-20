@@ -1,19 +1,26 @@
 apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/common-def.gradle'
 
 def findVersionName() {
-    def versionName
+
+  def versionName
+  def pomVersion = findProperty("POM_VERSION", "0.0.0-ALPHA-0")
+
+  // on CI mode, it will follow  git tag, then POM_VERSION property
+  if (findProperty("CI", "false") == "true") {
     try {
-        def tag = gitTag()
-        if (findProperty("IS_RELEASE", "false") == "true") {
-            versionName = tag
-        } else {
-            versionName = tag + "-" + gitSha1()
-        }
+      versionName = gitTag()
     } catch (Exception e) {
-        versionName = findProperty("POM_VERSION", "0.0.0-ALPHA-" + gitSha1())
+      versionName = pomVersion
     }
-    println "Found version name = $versionName"
-    return versionName
+  }
+
+  // on local machine mode it will use POM_VERSION + SNAPSHOT
+  else {
+    versionName = pomVersion + "-SNAPSHOT"
+  }
+
+  println "Found version name = $versionName"
+  return versionName
 }
 
 ext {
