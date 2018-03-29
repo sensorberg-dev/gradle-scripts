@@ -21,8 +21,17 @@ afterEvaluate { project ->
                 pom.version = findVersionName()
                 pom.packaging = POM_PACKAGING
 
-                repository(url: findProperty("MAVEN_URL", "FOOBAR")) {
+                def mavenUrl = findProperty("MAVEN_URL", "FOOBAR")
+                if (mavenUrl == "FOOBAR") throw new IllegalArgumentException("Missing required parameter MAVEN_URL")
+                repository(url: mavenUrl) {
                     authentication(userName: findProperty("MAVEN_USERNAME", "JOHN"), password: findProperty("MAVEN_PASSWORD", "DOE"))
+                }
+
+                def mavenSnapshotUrl = findProperty("MAVEN_URL_SNAPSHOT", "FOOBAR")
+                if (mavenSnapshotUrl != "FOOBAR") {
+                    snapshotRepository(url: mavenSnapshotUrl) {
+                        authentication(userName: findProperty("MAVEN_USERNAME", "JOHN"), password: findProperty("MAVEN_PASSWORD", "DOE"))
+                    }
                 }
             }
         }

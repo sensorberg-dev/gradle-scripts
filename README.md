@@ -34,6 +34,7 @@ Some of those scripts relies on gradle properties parameters
 project gradle.properties
 ```
 MAVEN_URL=http://www.your_maven.com/instance
+MAVEN_URL_SNAPSHOT=http://www.your_maven.com/snapshot_instance
 MAVEN_USERNAME=user_name_on_maven_instance
 MAVEN_PASSWORD=123456789
 
@@ -49,6 +50,7 @@ POM_ARTIFACT_ID=my-super-lib
 ### add_private_maven_repo_to_project.gradle
 ```
 MAVEN_URL=http://www.your_maven.com/instance
+MAVEN_URL_SNAPSHOT=http://www.your_maven.com/snapshot_instance
 MAVEN_USERNAME=user_name_on_maven_instance
 MAVEN_PASSWORD=123456789
 ```

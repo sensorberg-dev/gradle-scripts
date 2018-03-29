@@ -2,11 +2,25 @@ apply from: 'https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/mas
 
 allprojects {
     repositories {
-        maven {
-            url findProperty("MAVEN_URL", "FOOBAR")
-            credentials {
-                username = findProperty("MAVEN_USERNAME", "JOHN")
-                password = findProperty("MAVEN_PASSWORD", "DOE")
+        def mavenUrl = findProperty("MAVEN_URL", "FOOBAR")
+        if (mavenUrl != "FOOBAR") {
+            maven {
+                url mavenUrl
+                credentials {
+                    username = findProperty("MAVEN_USERNAME", "JOHN")
+                    password = findProperty("MAVEN_PASSWORD", "DOE")
+                }
+            }
+        }
+
+        def mavenSnapshotUrl = findProperty("MAVEN_URL_SNAPSHOT", "FOOBAR")
+        if (mavenSnapshotUrl != "FOOBAR") {
+            maven {
+                url mavenSnapshotUrl
+                credentials {
+                    username = findProperty("MAVEN_USERNAME", "JOHN")
+                    password = findProperty("MAVEN_PASSWORD", "DOE")
+                }
             }
         }
     }
