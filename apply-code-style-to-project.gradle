@@ -9,23 +9,13 @@ class DownloadCodeStyle implements TaskExecutionListener {
     @Override
     void afterExecute(Task task, TaskState state) {
         if (task.name.equals("preBuild")) {
-            // old code style format
-            task.project.rootProject.ext.
-                    downloadToProjectRoot(
-                            // source
-                            "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/codeStyleSettings.xml",
-                            // sub-folder
-                            ".idea",
-                            // file name
-                            "codeStyleSettings.xml")
-
               // new code style format https://confluence.jetbrains.com/display/IDEADEV/New+project+code+style+settings+format+in+2017.3
               task.project.rootProject.ext.
                       downloadToProjectRoot(
                               // source
                               "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/codeStyleConfig.xml",
                               // sub-folder
-                              ".idea/codeStyle",
+                              ".idea/codeStyles",
                               // file name
                               "codeStyleConfig.xml")
                 task.project.rootProject.ext.
@@ -33,7 +23,7 @@ class DownloadCodeStyle implements TaskExecutionListener {
                                 // source
                                 "https://raw.githubusercontent.com/sensorberg-dev/gradle-scripts/master/files/Project.xml",
                                 // sub-folder
-                                ".idea/codeStyle",
+                                ".idea/codeStyles",
                                 // file name
                                 "Project.xml")
         }
