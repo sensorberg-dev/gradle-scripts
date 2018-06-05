@@ -7,11 +7,7 @@ def findVersionName() {
 
   // on CI mode, it will follow  git tag, then POM_VERSION property
   if (findProperty("CI", "false") == "true") {
-    try {
-      versionName = gitTag()
-    } catch (Exception e) {
-      versionName = pomVersion
-    }
+    versionName = pomVersion
   }
 
   // on local machine mode it will use POM_VERSION + SNAPSHOT
