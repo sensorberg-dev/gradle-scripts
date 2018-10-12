@@ -51,9 +51,10 @@ def findProperty(String key, String defaultValue) {
         }
     }
 
-    // gradle.properties file
-    if (hasProperty(key)) {
-        return getProperty(key)
+    // gradle properties
+    def found = findProperty(key)
+    if (found != null) {
+        return found
     }
 
     // default
