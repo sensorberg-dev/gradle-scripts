@@ -71,6 +71,9 @@
     <yaml>
       <option name="INDENT_SEQUENCE_VALUE" value="true" />
     </yaml>
+    <editorconfig>
+      <option name="ENABLED" value="false" />
+    </editorconfig>
     <codeStyleSettings language="Groovy">
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />
